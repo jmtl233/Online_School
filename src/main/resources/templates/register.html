@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>注册</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <h2>用户注册</h2>
+        <form th:action="@{/register}" th:object="${user}" method="post">
+            <div>
+                <label>用户名:</label>
+                <input type="text" th:field="*{username}" required>
+            </div>
+            <div th:if="${#fields.hasErrors('username')}" class="error">
+                <span th:each="err : ${#fields.errors('username')}" th:text="${err}"></span>
+            </div>
+            <div>
+                <label>密码:</label>
+                <input type="password" th:field="*{password}" required>
+            </div>
+            <div th:if="${#fields.hasErrors('password')}" class="error">
+                <span th:each="err : ${#fields.errors('password')}" th:text="${err}"></span>
+            </div>
+            <div>
+                <label>邮箱:</label>
+                <input type="email" th:field="*{email}" required>
+            </div>
+            <div th:if="${#fields.hasErrors('email')}" class="error">
+                <span th:each="err : ${#fields.errors('email')}" th:text="${err}"></span>
+            </div>
+            <button type="submit">注册</button>
+        </form>
+        <p>已有账号？<a href="/login">立即登录</a></p>
+        <div th:if="${error}" class="error" th:text="${error}"></div>
+    </div>
+</body>
+</html> 
