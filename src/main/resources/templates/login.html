@@ -5,20 +5,30 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <div class="container">
-        <h2>用户登录</h2>
-        <form th:action="@{/login}" method="post">
-            <div>
-                <label>用户名:</label>
-                <input type="text" name="username" required>
+    <div class="login-container">
+        <!-- 左侧背景区域 -->
+        <div class="login-left">
+            <!-- 背景图片将通过CSS添加 -->
+        </div>
+        
+        <!-- 右侧登录表单 -->
+        <div class="login-right">
+            <div class="login-form">
+                <h2>用户登录</h2>
+                <form th:action="@{/login}" method="post">
+                    <div>
+                        <label>用户名:</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div>
+                        <label>密码:</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <button type="submit">登录</button>
+                </form>
+                <p>没有账号？<a href="/register">立即注册</a></p>
             </div>
-            <div>
-                <label>密码:</label>
-                <input type="password" name="password" required>
-            </div>
-            <button type="submit">登录</button>
-        </form>
-        <p>没有账号？<a href="/register">立即注册</a></p>
+        </div>
     </div>
 </body>
 </html> 
