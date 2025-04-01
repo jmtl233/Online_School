@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.validation.BindingResult;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
 @Controller
 public class AuthController {
@@ -24,14 +28,18 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid User user, BindingResult result, Model model) {
+    public String registerUser(
+            @Valid User user,
+            BindingResult result,
+            Model model
+    ) {
         if (result.hasErrors()) {
             model.addAttribute("errors", result.getAllErrors());
             return "register";
         }
         try {
             userService.registerUser(user);
-            return "redirect:/login";
+            return "redirect:/login?registered=true";
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
             return "register";
@@ -39,7 +47,26 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm() {
+    public String showLoginForm(
+            @RequestParam(required = false) String error,
+            @RequestParam(required = false) String registered,
+            Model model
+    ) {
+        if (error != null) {
+            model.addAttribute("error", "用户名或密码错误");
+        }
+        if (registered != null) {
+            model.addAttribute("message", "注册成功，请登录");
+        }
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(null, null, auth);
+        }
+        return "redirect:/login?logout=true";
     }
 } 

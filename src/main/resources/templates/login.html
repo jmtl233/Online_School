@@ -15,20 +15,47 @@
         <div class="login-right">
             <div class="login-form">
                 <h2>用户登录</h2>
+                
+                <!-- 角色选择标签 -->
+                <div class="role-tabs">
+                    <button class="role-tab active" data-role="STUDENT">学生登录</button>
+                    <button class="role-tab" data-role="TEACHER">教师登录</button>
+                    <button class="role-tab" data-role="ADMIN">管理员登录</button>
+                </div>
+
+                <!-- 登录表单 -->
                 <form th:action="@{/login}" method="post">
-                    <div>
+                    <input type="hidden" name="role" id="selectedRole" value="STUDENT">
+                    <div class="form-group">
                         <label>用户名:</label>
                         <input type="text" name="username" required>
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label>密码:</label>
                         <input type="password" name="password" required>
                     </div>
-                    <button type="submit">登录</button>
+                    <button type="submit" class="login-btn">登录</button>
                 </form>
-                <p>没有账号？<a href="/register">立即注册</a></p>
+                
+                <div class="switch-link">
+                    <p>没有账号？<a href="/register">立即注册</a></p>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // 角色切换功能
+        document.querySelectorAll('.role-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 移除所有active类
+                document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+                // 添加active类到当前点击的标签
+                tab.classList.add('active');
+                // 更新隐藏的role输入值
+                document.getElementById('selectedRole').value = tab.dataset.role;
+            });
+        });
+    </script>
 </body>
 </html> 

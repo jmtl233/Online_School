@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>在线学习平台</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <h1>在线学习平台</h1>
+      </div>
+      <div class="nav-menu">
+        <a href="/home" class="nav-item active">首页</a>
+        <a href="/courses" class="nav-item">我的课程</a>
+        <a href="/assignments" class="nav-item">作业</a>
+        <a href="/schedule" class="nav-item">课程表</a>
+        <a href="/profile" class="nav-item">个人中心</a>
+      </div>
+      <div class="nav-user">
+        <span class="username" th:text="${username}"></span>
+        <form th:action="@{/logout}" method="post" class="logout-form">
+          <button type="submit" class="logout-btn">退出登录</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主要内容区域 -->
+  <main class="main-content">
+    <!-- 欢迎区域 -->
+    <section class="welcome-section">
+      <h2>欢迎回来，<span th:text="${username}"></span>同学！</h2>
+      <p class="welcome-text">今天是 <span id="current-date"></span></p>
+    </section>
+
+    <!-- 课程概览 -->
+    <section class="course-overview">
+      <h3>我的课程</h3>
+      <div class="course-grid">
+        <div class="course-card">
+          <div class="course-image">
+            <img th:src="@{/css/images/match.jpg}" alt="数学课程">
+          </div>
+          <div class="course-info">
+            <h4>高等数学</h4>
+            <p>教师：张老师</p>
+            <div class="progress-bar">
+              <div class="progress" style="width: 75%"></div>
+            </div>
+            <p class="progress-text">完成度：75%</p>
+          </div>
+        </div>
+        <div class="course-card">
+          <div class="course-image">
+            <img th:src="@{/css/images/english.jpg}" alt="英语课程">
+          </div>
+          <div class="course-info">
+            <h4>大学英语</h4>
+            <p>教师：李老师</p>
+            <div class="progress-bar">
+              <div class="progress" style="width: 60%"></div>
+            </div>
+            <p class="progress-text">完成度：60%</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 待办事项 -->
+    <section class="todo-section">
+      <h3>待办事项</h3>
+      <div class="todo-list">
+        <div class="todo-item">
+          <span class="todo-icon">📝</span>
+          <span class="todo-text">高等数学作业提交截止：明天</span>
+        </div>
+        <div class="todo-item">
+          <span class="todo-icon">📅</span>
+          <span class="todo-text">大学英语期中考试：下周</span>
+        </div>
+        <div class="todo-item">
+          <span class="todo-icon">📚</span>
+          <span class="todo-text">物理实验报告提交：本周五</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // 显示当前日期
+    const date = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+    document.getElementById('current-date').textContent = date.toLocaleDateString('zh-CN', options);
+  </script>
+</body>
+</html>
