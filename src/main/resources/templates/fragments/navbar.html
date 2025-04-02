@@ -1,0 +1,15 @@
+<div class="user-dropdown">
+    <!-- 删除以下个人信息链接 -->
+    <!--
+    <a th:href="@{/profile}" class="dropdown-item">
+        <i class="fas fa-user-edit"></i>
+        <span>个人信息</span>
+    </a>
+    -->
+    <form th:action="@{/logout}" method="post" class="dropdown-btn">
+        <button type="submit" class="dropdown-item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>退出登录</span>
+        </button>
+    </form>
+</div> 

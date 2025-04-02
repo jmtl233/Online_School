@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.validation.BindingResult;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,6 +52,7 @@ public class AuthController {
             @RequestParam(required = false) String registered,
             Model model
     ) {
+        System.out.println("正在访问登录页面");
         if (error != null) {
             model.addAttribute("error", "用户名或密码错误");
         }

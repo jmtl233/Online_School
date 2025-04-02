@@ -3,6 +3,8 @@
 <head>
   <title>在线学习平台</title>
   <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 </head>
 <body>
   <!-- 导航栏 -->
@@ -19,10 +21,23 @@
         <a href="/profile" class="nav-item">个人中心</a>
       </div>
       <div class="nav-user">
-        <span class="username" th:text="${username}"></span>
-        <form th:action="@{/logout}" method="post" class="logout-form">
-          <button type="submit" class="logout-btn">退出登录</button>
-        </form>
+        <div class="user-menu-container">
+            <div class="user-icon-wrapper">
+                <i class="fas fa-user-circle user-icon"></i>
+            </div>
+            <div class="user-dropdown">
+                <a href="/profile" class="dropdown-item">
+                    <i class="fas fa-user"></i>
+                    <span>个人信息</span>
+                </a>
+                <form th:action="@{/logout}" method="post" class="dropdown-item">
+                    <button type="submit" class="dropdown-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>退出登录</span>
+                    </button>
+                </form>
+            </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -94,5 +109,6 @@
     const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
     document.getElementById('current-date').textContent = date.toLocaleDateString('zh-CN', options);
   </script>
+  <script th:src="@{/js/nav.js}"></script>
 </body>
 </html>

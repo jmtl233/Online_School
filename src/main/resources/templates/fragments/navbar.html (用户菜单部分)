@@ -1,0 +1,18 @@
+<div class="user-menu-container">
+    <div class="user-icon-wrapper">
+        <i class="fas fa-user-circle user-icon"></i>
+    </div>
+    
+    <div class="user-dropdown">
+        <a href="/profile" class="dropdown-item">
+            <i class="fas fa-user-edit"></i>
+            <span>个人信息</span>
+        </a>
+        <form th:action="@{/logout}" method="post" class="dropdown-btn">
+            <button type="submit" class="dropdown-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>退出登录</span>
+            </button>
+        </form>
+    </div>
+</div> 
