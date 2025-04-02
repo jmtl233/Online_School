@@ -48,17 +48,81 @@ input[type="text"],
 input[type="password"],
 input[type="email"] {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 12px 15px;
+    border: 2px solid #e9ecef !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    background: #f8f9fa;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-    transition: border-color 0.3s, box-shadow 0.3s;
+/* 新增标签样式 */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #495057;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* 新增提示文字样式 */
+.form-group small {
+    display: block;
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-top: 6px;
+}
+
+/* 优化焦点状态 */
+input:focus {
+    background: white;
+    border-color: #3498db !important;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* 新增验证提示样式 */
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    display: none;
+}
+
+input:invalid + .invalid-feedback {
+    display: block;
+}
+
+/* 新增图标样式 */
+.input-icon {
+    position: relative;
+}
+
+.input-icon i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+.input-icon input {
+    padding-left: 40px;
+}
+
+@media (max-width: 768px) {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
 }
 
 button {
@@ -123,52 +187,94 @@ a:hover {
     to { transform: rotate(360deg); }
 }
 
-/* 新增登录容器样式 */
+/* 重置登录容器 */
 .login-container {
     display: flex;
     min-height: 100vh;
+    background: #f8f9fa;
 }
 
 .login-left {
     flex: 1;
-    background: url('/css/images/login-bg.jpg') center/cover no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    color: #333;
-    text-align: center;
+    background: url('../css/images/login-bg.jpg') center/cover no-repeat;
+    min-height: 600px; /* 设置最小高度 */
     position: relative;
-    overflow: hidden;
-}
-
-.login-left::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.1);
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%); /* 添加斜切效果 */
 }
 
 .login-right {
     flex: 0 0 40%;
     display: flex;
-    justify-content: center;
     align-items: center;
     padding: 2rem;
     background: white;
+    box-shadow: -5px 0 30px rgba(0,0,0,0.05); /* 左侧添加阴影分隔线 */
 }
 
+/* 保持原有输入框样式不变 */
 .login-form {
     width: 100%;
     max-width: 400px;
+    margin-left: auto; /* 右对齐 */
     padding: 2rem;
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 新增响应式设计 */
+@media (max-width: 992px) {
+    .login-container {
+        flex-direction: column;
+    }
+    
+    .login-left {
+        flex: none;
+        height: 300px;
+        clip-path: none;
+    }
+    
+    .login-right {
+        flex: none;
+        width: 100%;
+        box-shadow: none;
+        padding: 2rem 1rem;
+    }
+    
+    .login-form {
+        margin: 0 auto; /* 居中显示 */
+    }
+}
+
+/* 新增装饰元素 */
+.login-form::before {
+    content: 'WELCOME';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    font-size: 2.2rem;
+    color: rgba(52, 152, 219, 0.15);
+    font-weight: 800;
+    letter-spacing: 3px;
+    z-index: 1;
+    transition: all 0.3s ease;
+    animation: fadeInDown 0.6s ease-out;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+}
+
+/* 新增动画效果 */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* 新增角色切换样式 */
@@ -244,23 +350,27 @@ a:hover {
         padding: 0.8rem;
         text-align: center;
     }
+
+    .login-form::before {
+        display: none;
+    }
 }
 
 /* 在现有样式基础上添加以下内容 */
 .form-group {
-    margin-bottom: 1.5rem;
+    position: relative;
+    margin-bottom: 1.8rem;
 }
 
-.form-group label {
-    font-weight: 500;
-    color: #333;
-}
-
-.form-group small {
-    display: block;
-    color: #666;
-    font-size: 0.8rem;
-    margin-top: 0.3rem;
+.form-group::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e9ecef;
+    transition: all 0.3s ease;
 }
 
 /* 新增首页样式 */
@@ -752,7 +862,7 @@ a:hover {
 }
 
 input:invalid {
-    border-color: #dc3545 !important;
+    border-color: #fbfbfb !important;
 }
 
 input:valid {
@@ -784,4 +894,12 @@ input:valid {
     color: #6c757d;
     font-size: 1.1rem;
     margin-bottom: 2rem;
+}
+
+/* 新增移动端适配 */
+@media (max-width: 992px) {
+    .login-form::before {
+        top: 15px;
+        font-size: 2rem;
+    }
 }
